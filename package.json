@@ -1,0 +1,23 @@
+{
+  "name": "web-rtc-backend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "src/main.js",
+  "type": "module",
+  "scripts": {
+    "start": "node src/main.js",
+    "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js --runInBand"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "mongodb": "^4.2.2",
+    "uuid": "^8.3.2",
+    "ws": "^8.3.0"
+  },
+  "devDependencies": {
+    "bson": "^4.6.0",
+    "jest": "^27.5.1"
+  }
+}
