@@ -1,4 +1,4 @@
-import WebSocket from "ws";
+import WebSocket, {WebSocketServer} from "ws";
 import * as fs from "fs";
 import * as path from "path";
 import * as http from "http";
@@ -19,7 +19,7 @@ export const WebSocketServerModule = config => (() => {
     const httpsServer = https.createServer(options(path.resolve()));
 
     const preferredServer = config.SECURE ? httpsServer : httpServer;
-    const webSocketServer = new WebSocket.WebSocketServer({server: preferredServer});
+    const webSocketServer = new WebSocketServer({server: preferredServer});
 
     const clients = new Map();
 
