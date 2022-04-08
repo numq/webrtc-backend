@@ -17,17 +17,15 @@ const databaseModule = DatabaseModule(configModule.MongoDB);
     await database.connect().then(sessionRepository.clearSessions);
 
     const notify = (server, ws, session) => {
-        if (session != null) {
-            if (session.members.length > 0) {
-                session.members.forEach(member => {
-                    server.sendMessage(member, 'notify', {
-                        clientId: member,
-                        sessionId: session._id,
-                        members: session.members.join(';')
-                    });
-                })
-            }
-        }
+        session?.members.forEach(member => {
+            server.sendMessage(member, 'notify', {
+                isAvailable: session.members.length === 2,
+                sessionId: session._id,
+                clientId: member,
+                strangerId: session.members.filter(m => m !== member)[0] || null,
+                isLastConnected: session.members[1] === member
+            });
+        });
     };
 
     await webSocket.connect(async _ => {
