@@ -52,7 +52,7 @@ const databaseModule = DatabaseModule(configModule.MongoDB);
             console.log(body);
         }
 
-        switch (type) {
+        switch (type.toUpperCase()) {
 
             case (webSocket.MessageType.REQUEST): {
                 sessionUseCase.randomSession().then(session => {
