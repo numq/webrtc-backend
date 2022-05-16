@@ -15,6 +15,14 @@ export const WebSocketServerModule = config => (() => {
         }
     };
 
+    const MessageType = {
+        REQUEST: "REQUEST",
+        LEAVE: "LEAVE",
+        OFFER: "OFFER",
+        ANSWER: "ANSWER",
+        CANDIDATE: "CANDIDATE"
+    }
+
     const httpServer = http.createServer();
     const httpsServer = https.createServer(options(path.resolve()));
 
@@ -39,17 +47,19 @@ export const WebSocketServerModule = config => (() => {
 
     };
 
-    const broadcast = (wss, ws, message) => {
-        clients.forEach(client => {
+    const broadcast = (type, body) => {
+        clients.forEach((_, client) => {
             if (client.readyState === WebSocket.OPEN) {
+                const message = JSON.stringify({type: type, body: body});
                 client.send(message, {isBinary: false});
             }
         });
     };
 
-    const broadcastExcept = (wss, ws, message) => {
-        clients.forEach(client => {
-            if (client !== ws && client.readyState === WebSocket.OPEN) {
+    const broadcastExcept = (id, type, body) => {
+        clients.forEach((clientId, client) => {
+            if (id !== clientId && client.readyState === WebSocket.OPEN) {
+                const message = JSON.stringify({type: type, body: body});
                 client.send(message, {isBinary: false});
             }
         });
@@ -112,6 +122,7 @@ export const WebSocketServerModule = config => (() => {
     };
 
     return {
+        MessageType: MessageType,
         connect: connect,
         disconnect: disconnect,
         getId: getId,

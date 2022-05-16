@@ -54,7 +54,7 @@ export const SessionRepositoryModule = collection => (() => {
     };
 
     const leaveSession = collection => memberId => {
-        return collection.findOneAndUpdate({members: memberId}, {$pull: {members: memberId}}, {returnDocument: 'after'}).then(session => {
+        return collection.findOneAndUpdate({members: memberId}, {$pull: {members: memberId}}, {returnDocument: 'before'}).then(session => {
             if (session.value) {
                 if (session.value.members.length > 0) {
                     console.log(`Member with id ${memberId} leaved from session ${session.value._id}.`);

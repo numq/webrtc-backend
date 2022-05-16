@@ -1,31 +1,19 @@
-export const ConfigModule = (debug = false) => (() => {
+export const ConfigModule = (debug = true, secure = false) => (() => {
 
-    const test = {
+    const testTag = '-test'
+    const createValue = value => ((tag, debug) => debug ? value + tag : value)(testTag, debug)
+
+    return {
         WebSocket: {
-            HOST: 'localhost',
+            HOST: '192.168.1.67',
             PORT: '8080',
-            SECURE: false
+            SECURE: secure
         },
         MongoDB: {
-            URI: 'mongodb://localhost:27017/web-rtc-example' + '-test',
-            NAME: 'web-rtc-example' + '-test',
-            COLLECTION_SESSION: 'session' + '-test'
+            URI: createValue('mongodb://localhost:27017/web-rtc-example'),
+            NAME: createValue('web-rtc-example'),
+            COLLECTION_SESSION: createValue('session')
         }
     };
-
-    const production = {
-        WebSocket: {
-            HOST: '192.168.1.64',
-            PORT: '8080',
-            SECURE: true
-        },
-        MongoDB: {
-            URI: 'mongodb://localhost:27017/web-rtc-example',
-            NAME: 'web-rtc-example',
-            COLLECTION_SESSION: 'session'
-        }
-    };
-
-    return debug ? test : production;
 
 })(ConfigModule || {})
