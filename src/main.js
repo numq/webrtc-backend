@@ -3,6 +3,7 @@ import {WebSocketServerModule} from "./infrastructure/WebSocketServerModule.js";
 import {SessionRepositoryModule} from "./data/repository/SessionRepositoryModule.js";
 import {SessionUseCaseModule} from "./usecase/session/SessionUseCaseModule.js";
 import {ConfigModule} from "./config/ConfigModule.js";
+import {MessageType} from "./infrastructure/MessageType.js"
 
 const configModule = ConfigModule();
 const webSocketModule = WebSocketServerModule(configModule.WebSocket);
@@ -54,7 +55,7 @@ const databaseModule = DatabaseModule(configModule.MongoDB);
 
         switch (type.toUpperCase()) {
 
-            case (webSocket.MessageType.REQUEST): {
+            case (MessageType.REQUEST): {
                 sessionUseCase.randomSession().then(session => {
                     if (session !== null) {
                         sessionUseCase.joinSession(session._id, webSocket.getId(ws)).then(res => {
@@ -70,17 +71,17 @@ const databaseModule = DatabaseModule(configModule.MongoDB);
                 });
                 break;
             }
-            case (webSocket.MessageType.LEAVE): {
+            case (MessageType.LEAVE): {
                 sessionUseCase.leaveSession(webSocket.getId(ws)).then(session => {
                     notify(webSocket, ws, session, SessionType.DISCONNECTED);
                 });
                 break;
             }
-            case (webSocket.MessageType.CANDIDATE): {
+            case (MessageType.CANDIDATE): {
                 webSocket.sendMessage(body.id, type, body);
                 break;
             }
-            case (webSocket.MessageType.OFFER): {
+            case (MessageType.OFFER): {
                 console.log('offer from %s', webSocket.getId(ws))
                 webSocket.sendMessage(body.id, type, {
                     id: webSocket.getId(ws),
@@ -88,7 +89,7 @@ const databaseModule = DatabaseModule(configModule.MongoDB);
                 });
                 break;
             }
-            case (webSocket.MessageType.ANSWER): {
+            case (MessageType.ANSWER): {
                 console.log('answer from %s', webSocket.getId(ws))
                 webSocket.sendMessage(body.id, type, {
                     sdp: body.sdp

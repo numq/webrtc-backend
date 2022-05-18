@@ -15,14 +15,6 @@ export const WebSocketServerModule = config => (() => {
         }
     };
 
-    const MessageType = {
-        REQUEST: "REQUEST",
-        LEAVE: "LEAVE",
-        OFFER: "OFFER",
-        ANSWER: "ANSWER",
-        CANDIDATE: "CANDIDATE"
-    }
-
     const httpServer = http.createServer();
     const httpsServer = https.createServer(options(path.resolve()));
 
@@ -122,7 +114,6 @@ export const WebSocketServerModule = config => (() => {
     };
 
     return {
-        MessageType: MessageType,
         connect: connect,
         disconnect: disconnect,
         getId: getId,
