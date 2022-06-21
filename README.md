@@ -1,4 +1,17 @@
-**This is one of the WebRTC projects, links to which you can find below:**
+# Video chat backend
+
+## Description:
+**Implementation of an Omegle-like video chat backend using WebRTC standard and Clean Architecture principles.**
+
+## Tech:
+- Node.js
+- JavaScript
+- WebSocket
+- WebRTC
+- MongoDB
+- Jest
+
+*This is one of the WebRTC projects, links to which you can find below:*
 
 [Android client](https://github.com/numq/webrtc-client-android)
 
