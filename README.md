@@ -1,6 +1,5 @@
 # Video chat backend
 
-## Description:
 **Implementation of an Omegle-like video chat backend using WebRTC standard and Clean Architecture principles.**
 
 ## Tech:
