@@ -1,6 +1,5 @@
 # Video chat backend
-
-**Implementation of an Omegle-like video chat backend using WebRTC standard and Clean Architecture principles.**
+Clean Architecture random video chat app Node.js backend/signaling implementation using functional programming principles.
 
 ## Tech:
 - Node.js
